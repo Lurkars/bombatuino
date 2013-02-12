@@ -33,7 +33,7 @@ void setup()
   digitalWrite(encBPin, HIGH);
 }
 
-void loop() // run over and over
+void loop()
 {
   //print incoming bytes on softwareserial, just for checking MIDI-in, worked
   if (MIDI.available())
