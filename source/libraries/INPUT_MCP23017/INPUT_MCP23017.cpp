@@ -12,7 +12,7 @@ void INPUT_MCP23017::begin(uint8_t addr,CallbackFunction cbF) {
 	
 	_callbackFunction = cbF;
 		
-	// set defaults!
+	//set all ports as inputs
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
 	Wire.write((byte)MCP23017_IODIRA);
 	Wire.write(0xFF);  // all inputs on port A
@@ -23,7 +23,7 @@ void INPUT_MCP23017::begin(uint8_t addr,CallbackFunction cbF) {
 	Wire.write(0xFF);  // all inputs on port B
 	Wire.endTransmission();
 	
-	
+	//activate pullup resistors
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
 	Wire.write(MCP23017_GPPUA); 
 	Wire.write(0xFF);	// all pullup resistors on port A
@@ -34,6 +34,7 @@ void INPUT_MCP23017::begin(uint8_t addr,CallbackFunction cbF) {
 	Wire.write(0xFF);	// all pullup resistors on port B
 	Wire.endTransmission();
 
+	//inverse all inputs
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
 	Wire.write((byte)MCP23017_IPOLA);
 	Wire.write(0xFF);  // inverse all inputs
@@ -95,6 +96,7 @@ void INPUT_MCP23017::loop() {
 	} 
 }
 
+//maybe useful later
 int INPUT_MCP23017::getSpecificValue(uint8_t pin) {
 	if (pin > 16)
 		return LOW;

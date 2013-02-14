@@ -1,5 +1,8 @@
 /*
-  INPUT_4051.h - Library for reading inputs from 4051 multiplexer
+	INPUT_72HC4051.h - Library for reading inputs from 74HC4051 multiplexer
+
+	library is for specialiced use: all I/O ports are used as analog inputs, values are stored and a callback function is called, when a value changes
+  
 */
 #ifndef INPUT_74HC4051_h
 #define INPUT_74HC4051_h

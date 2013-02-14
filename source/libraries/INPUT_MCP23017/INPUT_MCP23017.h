@@ -1,5 +1,9 @@
 /*
-  INPUT_MCP23017.h - Library for reading inputs from MCP23017 port Expander
+	INPUT_MCP23017.h - Library for reading inputs from MCP23017 port Expander
+
+	library is for specialiced use: all I/O ports are used as digital inputs with internal pullup resistor active, values are stored and a callback function is called, when a value changes
+  
+*/
 */
 #ifndef INPUT_MCP23017_h
 #define INPUT_MCP23017_h
