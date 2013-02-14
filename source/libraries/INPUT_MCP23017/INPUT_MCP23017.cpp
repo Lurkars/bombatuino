@@ -6,6 +6,7 @@
 void INPUT_MCP23017::begin(uint8_t addr,CallbackFunction cbF) {
 	Wire.begin();
 	
+	//check hardware address
 	if (addr > 7)
 		_addr = 7;
 	else _addr =  addr;
@@ -14,35 +15,35 @@ void INPUT_MCP23017::begin(uint8_t addr,CallbackFunction cbF) {
 		
 	//set all ports as inputs
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write((byte)MCP23017_IODIRA);
-	Wire.write(0xFF);  // all inputs on port A
+	Wire.write((byte)MCP23017_IODIRA); //PORT A
+	Wire.write(0xFF);
 	Wire.endTransmission();
 
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_IODIRB);
-	Wire.write(0xFF);  // all inputs on port B
+	Wire.write(MCP23017_IODIRB); //PORT B
+	Wire.write(0xFF);
 	Wire.endTransmission();
 	
 	//activate pullup resistors
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_GPPUA); 
-	Wire.write(0xFF);	// all pullup resistors on port A
+	Wire.write(MCP23017_GPPUA); //PORT A
+	Wire.write(0xFF);
 	Wire.endTransmission();
 	
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_GPPUB); 
-	Wire.write(0xFF);	// all pullup resistors on port B
+	Wire.write(MCP23017_GPPUB); //PORT B 
+	Wire.write(0xFF); 
 	Wire.endTransmission();
 
 	//inverse all inputs
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write((byte)MCP23017_IPOLA);
-	Wire.write(0xFF);  // inverse all inputs
+	Wire.write((byte)MCP23017_IPOLA); //PORT A
+	Wire.write(0xFF); 
 	Wire.endTransmission();
 
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_IPOLB);
-	Wire.write(0xFF);    // inverse all inputs
+	Wire.write(MCP23017_IPOLB);  //PORT B
+	Wire.write(0xFF);    
 	Wire.endTransmission();
 
 	//init start values
