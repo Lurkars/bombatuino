@@ -1,5 +1,5 @@
 #include "Arduino.h"
-#include "INPUT_74HC4051.h"
+#include "bombatuino_INPUT_74HC4051.h"
 
 //should be called in setup()
 void INPUT_74HC4051::begin(uint8_t analog, uint8_t s0, uint8_t s1, uint8_t s2,CallbackFunction cbF) {

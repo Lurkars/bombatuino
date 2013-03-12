@@ -1,5 +1,5 @@
 /**
- * @file INPUT_74HC4051.h
+ * @file bombatuino_INPUT_74HC4051.h
  * 
  * @author Lukas Haubaum (lukas@haubaum.de)
  * 
@@ -10,9 +10,8 @@
  * library is for specialiced use: all I/O ports are used as analog inputs, values are stored and a callback function is called, when a value changes
  * 	
  * */
-#ifndef INPUT_74HC4051_h
-#define INPUT_74HC4051_h
-
+#ifndef bombatuino_INPUT_74HC4051_h
+#define bombatuino_INPUT_74HC4051_h
 
 #define INPUT_74HC4051_TOLERANCE 1 /**< I/O DIRECTION REGISTER PORT A - Controls the direction of the data I/O. */
 

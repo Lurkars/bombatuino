@@ -1,5 +1,5 @@
 /**
- * @file INPUT_MCP23017.h
+ * @file bombatuino_INPUT_MCP23017.h
  * 
  * @author Lukas Haubaum (lukas@haubaum.de)
  * 
@@ -7,11 +7,12 @@
  * 
  * @brief arduino library for reading inputs from MCP23017 port Expander
  * 
- * library is for specialiced use: all I/O ports are used as digital inputs with internal pullup resistor active, values are stored and a callback function is called, when a value changes
+ * library is for specialiced use: all I/O ports are used as digital inputs with internal pullup resistor active, values are stored and a callback function is called, when a value changes.
+ * ATTETION: Wire.h must be included in sketch #include <Wire.h>
  * 	
  * */
-#ifndef INPUT_MCP23017_h
-#define INPUT_MCP23017_h
+#ifndef bombatuino_INPUT_MCP23017_h
+#define bombatuino_INPUT_MCP23017_h
 
 #if !defined(CallbackFunction)
 /**

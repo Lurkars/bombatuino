@@ -1,7 +1,7 @@
 #include <Wire.h>
 
 #include "Arduino.h"
-#include "INPUT_MCP23017.h"
+#include "bombatuino_INPUT_MCP23017.h"
 
 void INPUT_MCP23017::begin(uint8_t addr,CallbackFunction cbF) {
 	Wire.begin();
@@ -15,34 +15,34 @@ void INPUT_MCP23017::begin(uint8_t addr,CallbackFunction cbF) {
 		
 	//set all ports as inputs
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write((byte)MCP23017_IODIRA); //PORT A
+	Wire.write((byte)MCP23017_IODIR_A); //PORT A
 	Wire.write(0xFF);
 	Wire.endTransmission();
 
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_IODIRB); //PORT B
+	Wire.write(MCP23017_IODIR_B); //PORT B
 	Wire.write(0xFF);
 	Wire.endTransmission();
 	
 	//activate pullup resistors
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_GPPUA); //PORT A
+	Wire.write(MCP23017_GPPU_A); //PORT A
 	Wire.write(0xFF);
 	Wire.endTransmission();
 	
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_GPPUB); //PORT B 
+	Wire.write(MCP23017_GPPU_B); //PORT B 
 	Wire.write(0xFF); 
 	Wire.endTransmission();
 
 	//inverse all inputs
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write((byte)MCP23017_IPOLA); //PORT A
+	Wire.write((byte)MCP23017_IPOL_A); //PORT A
 	Wire.write(0xFF); 
 	Wire.endTransmission();
 
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_IPOLB);  //PORT B
+	Wire.write(MCP23017_IPOL_B);  //PORT B
 	Wire.write(0xFF);    
 	Wire.endTransmission();
 
@@ -50,7 +50,7 @@ void INPUT_MCP23017::begin(uint8_t addr,CallbackFunction cbF) {
 	uint8_t pin,bank;
 	//read bank A
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_GPIOA);
+	Wire.write(MCP23017_GPIO_A);
 	Wire.endTransmission();
     Wire.requestFrom(MCP23017_ADDRESS | _addr, 1);
 	bank = Wire.read();
@@ -58,7 +58,7 @@ void INPUT_MCP23017::begin(uint8_t addr,CallbackFunction cbF) {
 		_value[pin] = (bank >> pin) & 0x1;
 	//read bank B
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_GPIOB);
+	Wire.write(MCP23017_GPIO_B);
 	Wire.endTransmission();
     Wire.requestFrom(MCP23017_ADDRESS | _addr, 1);
 	bank = Wire.read();
@@ -71,7 +71,7 @@ void INPUT_MCP23017::loop() {
 	int value;
 	//read bank A
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_GPIOA);
+	Wire.write(MCP23017_GPIO_A);
 	Wire.endTransmission();
     Wire.requestFrom(MCP23017_ADDRESS | _addr, 1);
 	bank = Wire.read();
@@ -84,7 +84,7 @@ void INPUT_MCP23017::loop() {
 	}  	
 	//read bank B
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);
-	Wire.write(MCP23017_GPIOB);
+	Wire.write(MCP23017_GPIO_B);
 	Wire.endTransmission();
     Wire.requestFrom(MCP23017_ADDRESS | _addr, 1);
 	bank = Wire.read();
@@ -104,10 +104,10 @@ int INPUT_MCP23017::getSpecificValue(uint8_t pin) {
 	Wire.beginTransmission(MCP23017_ADDRESS | _addr);	
 	uint8_t p = pin;
 	if (pin > 8) {
-		Wire.write(MCP23017_GPIOB);
+		Wire.write(MCP23017_GPIO_B);
 		p -= 8;
 	} else 
-		Wire.write(MCP23017_GPIOA);
+		Wire.write(MCP23017_GPIO_A);
 	Wire.endTransmission();
 	uint8_t	bank = Wire.read();
 	int value = (bank >> p) & 0x1;
