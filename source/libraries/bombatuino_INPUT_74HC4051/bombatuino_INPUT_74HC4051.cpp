@@ -49,7 +49,7 @@ void INPUT_74HC4051::loop() {
 		digitalWrite(_s2, r2);
 		//not sure if nessesary
 		//delayMicroseconds(10);
-		value = analogRead(_analog);
+		value = analogRead(_analog) / 8;
 		if (_value[pin] < value - INPUT_74HC4051_TOLERANCE || _value[pin] > value + INPUT_74HC4051_TOLERANCE) {
 			_value[pin] = value;
 			(*_callbackFunction)(_analog,pin,value);
@@ -69,7 +69,7 @@ int INPUT_74HC4051::getSpecificValue(uint8_t pin) {
 	digitalWrite(_s1, r1);
 	digitalWrite(_s2, r2);
 	//delayMicroseconds(10);
-	int value = analogRead(_analog);
+	int value = analogRead(_analog) / 8;
 	_value[pin] = value;
 	return value;
 }

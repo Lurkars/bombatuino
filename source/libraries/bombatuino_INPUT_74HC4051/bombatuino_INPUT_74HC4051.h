@@ -13,7 +13,7 @@
 #ifndef bombatuino_INPUT_74HC4051_h
 #define bombatuino_INPUT_74HC4051_h
 
-#define INPUT_74HC4051_TOLERANCE 1 /**< I/O DIRECTION REGISTER PORT A - Controls the direction of the data I/O. */
+#define INPUT_74HC4051_TOLERANCE 0 /**< I/O DIRECTION REGISTER PORT A - Controls the direction of the data I/O. */
 
 #if !defined(CallbackFunction)
 /**
