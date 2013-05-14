@@ -3,10 +3,6 @@
 #include <bombatuino_INPUT_MCP23017.h>
 #include <bombatuino_INPUT_74HC4051.h>
 #include <bombatuino_ROTARY_ENCODER.h>
-#include <bombatuino_MIDI.h>
-
-
-MIDI Midi;
 
 INPUT_MCP23017 input_MCP23017_0;
 INPUT_MCP23017 input_MCP23017_1;
@@ -17,12 +13,14 @@ INPUT_74HC4051 input_4051_A0;
 INPUT_74HC4051 input_4051_A1;
 INPUT_74HC4051 input_4051_A2;
 
-ROTARY_ENCODER re_JogWheel1(rotaryLeftJogWheel1,rotaryRightJogWheel1);
-ROTARY_ENCODER re_JogWheel2(rotaryLeftJogWheel2,rotaryRightJogWheel2);
-ROTARY_ENCODER re_Browse(rotaryLeftBrowse,rotaryRightBrowse);
+
+ROTARY_ENCODER re_jogwheel(jogwheel);
+//ROTARY_ENCODER re_JogWheel1(rotaryLeftJogWheel1,rotaryRightJogWheel1);
+//ROTARY_ENCODER re_JogWheel2(rotaryLeftJogWheel2,rotaryRightJogWheel2);
+//ROTARY_ENCODER re_Browse(rotaryLeftBrowse,rotaryRightBrowse);
 
 void setup() {
-  Midi.begin();
+  Serial.begin(9600);
   input_MCP23017_0.begin(0,digitalCallback);
   input_MCP23017_1.begin(1,digitalCallback);
   input_MCP23017_3.begin(3,digitalCallback);
@@ -44,14 +42,22 @@ void loop() {
 }
 
 void analogCallback(int id, int pin, int value) {
-  Midi.controlChange((id-A0) * 8 + pin,value);
+    Serial.print("id ");
+    Serial.print(pin);
+    Serial.print(" pin ");
+    Serial.print(pin);
+    Serial.print(" : ");
+    Serial.print(value);
+    Serial.println();
 }
 
 void digitalCallback(int id, int pin, int value) {
     if (id == 1 && pin == 6)
-      re_JogWheel1.setPinA(value);
+      re_jogwheel.setPinA(value);
     if (id == 1 && pin == 7)
-      re_JogWheel1.setPinB(value);
+      re_jogwheel.setPinB(value);
+    
+    /*
     if (id == 3 && pin == 9)
       re_JogWheel2.setPinA(value);
     if (id == 3 && pin == 10)
@@ -60,44 +66,47 @@ void digitalCallback(int id, int pin, int value) {
       re_Browse.setPinA(value);
     if (id == 3 && pin == 5)
       re_Browse.setPinB(value);
+    */
     if ((id == 3 && pin != 5 && pin != 6 && pin!= 9 && pin != 10) || (id == 1 && pin != 6 && pin !=7) || (id == 0) || (id == 4)) {
-      if (value == HIGH)
-        Midi.noteOn(id * 16 + pin, MIDI_MAX_DATA);
-      else Midi.noteOff(id * 16 + pin);
+      Serial.print("id ");
+      Serial.print(pin);
+      Serial.print(" pin ");
+      Serial.print(pin);
+      Serial.print(" : ");
+      Serial.print(value);
+      Serial.println();
     }
+}
+
+void jogwheel(int c) {
+   Serial.println(c); 
 }
 
 //JogWheel1
 void rotaryLeftJogWheel1() {
-   Midi.noteOn(1 * 16 + 6, MIDI_MAX_DATA);
-   Midi.noteOff(1 * 16 + 6);
+      Serial.println("wheel1 left");
 }
 
 void rotaryRightJogWheel1() {
-   Midi.noteOn(1 * 16 + 7, MIDI_MAX_DATA);
-   Midi.noteOff(1 * 16 + 7);
+      Serial.println("wheel1 right");
 }
 
 
 //JogWheel2
 void rotaryLeftJogWheel2() {
-   Midi.noteOn(3 * 16 + 9, MIDI_MAX_DATA);
-   Midi.noteOff(3 * 16 + 9);
+      Serial.println("wheel2 left");
 }
 
 void rotaryRightJogWheel2() {
-   Midi.noteOn(3 * 16 + 10, MIDI_MAX_DATA);
-   Midi.noteOff(3 * 16 + 10);
+      Serial.println("wheel2 right");
 }
 
 
 //Browse
 void rotaryLeftBrowse() {
-   Midi.noteOn(3 * 16 + 6, MIDI_MAX_DATA);
-   Midi.noteOff(3 * 16 + 6);
+      Serial.println("wheel3 left");
 }
 
 void rotaryRightBrowse() {
-   Midi.noteOn(3 * 16 + 5, MIDI_MAX_DATA);
-   Midi.noteOff(3 * 16 + 5);
+      Serial.println("wheel3 right");
 }

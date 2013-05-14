@@ -1,4 +1,3 @@
-
 #include "Arduino.h"
 #include "bombatuino_ROTARY_ENCODER.h"
 
@@ -7,16 +6,16 @@ ROTARY_ENCODER::ROTARY_ENCODER(XcrementFunction incrementFunction, XcrementFunct
 	_decrement = decrementFunction;
 	_pinA = LOW;
 	_pinB = LOW;
-	_oldA = LOW;	
-}
-
-void ROTARY_ENCODER::setPinB(int value) {
-	_pinB = value;
-	onPinChange();
+	_oldA = LOW;
 }
 
 void ROTARY_ENCODER::setPinA(int value) {
 	_pinA = value;
+	onPinChange();
+}
+
+void ROTARY_ENCODER::setPinB(int value) {
+	_pinB = value;
 	onPinChange();
 }
 
