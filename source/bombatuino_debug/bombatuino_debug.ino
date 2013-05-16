@@ -20,7 +20,6 @@ ROTARY_ENCODER rotary_encoder_jogwheel_left(rotary_encoder_jogwheel_left_inc, ro
 ROTARY_ENCODER rotary_encoder_jogwheel_right(rotary_encoder_jogwheel_right_inc, rotary_encoder_jogwheel_right_dec);
 ROTARY_ENCODER rotary_encoder_browse(rotary_encoder_browse_inc,rotary_encoder_browse_dec);
 
-
 void setup() {
   Serial.begin(9600);
   input_MCP23017_0.begin(0,digitalCallback);
