@@ -11,6 +11,9 @@
  * 	
  * */
 
+//uncomment for debugging
+//#define DEBUG
+
 #ifndef bombatuino_MIDI_h
 #define bombatuino_MIDI_h
 

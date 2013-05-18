@@ -5,7 +5,7 @@
  * 
  * @date February, 2013
  * 
- * @brief arduino library for handling a rotary encoder
+ * @brief arduino library for handling a rotary encoder (simplified)
  * 
  * library is for specialiced use: increment- and decrement-functions are called on change of pin A. 
  * 	

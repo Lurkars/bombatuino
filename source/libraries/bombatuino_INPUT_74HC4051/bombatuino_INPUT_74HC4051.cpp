@@ -47,10 +47,9 @@ void INPUT_74HC4051::loop() {
 		digitalWrite(_s0, r0);
 		digitalWrite(_s1, r1);
 		digitalWrite(_s2, r2);
-		//not sure if nessesary
-		//delayMicroseconds(10);
+		//divide by 8 to get value beetween 0-127 for MIDI
 		value = analogRead(_analog) / 8;
-		if (_value[pin] < value - INPUT_74HC4051_TOLERANCE || _value[pin] > value + INPUT_74HC4051_TOLERANCE) {
+		if (_value[pin] < value || _value[pin] > value) {
 			_value[pin] = value;
 			(*_callbackFunction)(_analog,pin,value);
 		}
