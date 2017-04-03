@@ -18,6 +18,39 @@ INPUT_74HC4051 input_4051_A0;
 INPUT_74HC4051 input_4051_A1;
 INPUT_74HC4051 input_4051_A2;
 
+
+//left jogwheel, sends CC message on controller id 0x7A with value 65 (increment)
+void rotary_encoder_jogwheel_left_inc() {
+  Midi.controlChange(MIDI_MAX_DATA-5,65);
+}
+
+//left jogwheel, sends CC message on controller id 0x7A with value 63 (decrement)
+void rotary_encoder_jogwheel_left_dec() {
+  Midi.controlChange(MIDI_MAX_DATA-5,63);
+}
+
+//right jogwheel, sends CC message on controller id 0x79 with value 65 (increment)
+void rotary_encoder_jogwheel_right_inc() {
+  Midi.controlChange(MIDI_MAX_DATA-6,65);
+}
+
+//right jogwheel, sends CC message on controller id 0x79 with value 63 (decrement)
+void rotary_encoder_jogwheel_right_dec() {
+  Midi.controlChange(MIDI_MAX_DATA-6,63);
+}
+
+//browse, sends note-on/off signal with note 0x36 [equals to default digital callback note] (increment)
+void rotary_encoder_browse_inc() {
+  Midi.noteOn(3 * 16 + 6, MIDI_MAX_DATA);
+  Midi.noteOff(3 * 16 + 6);
+}
+
+//browse, sends note-on/off signal with note 0x35 [equals to default digital callback note] (decrement)
+void rotary_encoder_browse_dec() {
+  Midi.noteOn(3 * 16 + 5, MIDI_MAX_DATA);
+  Midi.noteOff(3 * 16 + 5);
+}
+
 //three rotary encoders connected to input_MCP23017_1 and input_MCP23017_3
 ROTARY_ENCODER rotary_encoder_jogwheel_left(rotary_encoder_jogwheel_left_inc, rotary_encoder_jogwheel_left_dec); //input_MCP23017_1 pins 6 and 7
 ROTARY_ENCODER rotary_encoder_jogwheel_right(rotary_encoder_jogwheel_right_inc, rotary_encoder_jogwheel_right_dec); //input_MCP23017_3 pins 9 and 1
@@ -85,38 +118,4 @@ void digitalCallback3(int id, int pin, int value) {
 		rotary_encoder_browse.setPinB(value);
 	if (pin!= 9 && pin != 10 && pin != 6 && pin != 5)
 		digitalCallback(id,pin,value);
-}
-
-//left jogwheel, sends CC message on controller id 0x7A with value 65 (increment)
-void rotary_encoder_jogwheel_left_inc() {
-	Midi.controlChange(MIDI_MAX_DATA-5,65);
-}
-
-//left jogwheel, sends CC message on controller id 0x7A with value 63 (decrement)
-void rotary_encoder_jogwheel_left_dec() {
-	Midi.controlChange(MIDI_MAX_DATA-5,63);
-}
-
-
-//right jogwheel, sends CC message on controller id 0x79 with value 65 (increment)
-void rotary_encoder_jogwheel_right_inc() {
-	Midi.controlChange(MIDI_MAX_DATA-6,65);
-}
-
-//right jogwheel, sends CC message on controller id 0x79 with value 63 (decrement)
-void rotary_encoder_jogwheel_right_dec() {
-	Midi.controlChange(MIDI_MAX_DATA-6,63);
-}
-
-
-//browse, sends note-on/off signal with note 0x36 [equals to default digital callback note] (increment)
-void rotary_encoder_browse_inc() {
-	Midi.noteOn(3 * 16 + 6, MIDI_MAX_DATA);
-	Midi.noteOff(3 * 16 + 6);
-}
-
-//browse, sends note-on/off signal with note 0x35 [equals to default digital callback note] (decrement)
-void rotary_encoder_browse_dec() {
-	Midi.noteOn(3 * 16 + 5, MIDI_MAX_DATA);
-	Midi.noteOff(3 * 16 + 5);
 }
